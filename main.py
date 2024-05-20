@@ -3,6 +3,7 @@ from pygame.locals import *
 from sbarra import sbarra
 from palla import palla
 from mattoncini import mattoncino
+from punteggio import punteggio
 dimensionifinestra=(600,400)
 white=(255,255,255)
 black=(0,0,0)
@@ -24,6 +25,10 @@ size1=(25,25)
 velocity=[8,8]
 ball=palla(screen,pos1,size1,white,paddle,mattoncini)
 ball.draw()
+
+sizepunteggio=(50,20)
+pospunteggio=(550,0)
+puteggio=punteggio(screen,sizepunteggio,pospunteggio)
 
 
 for i in range(3):
@@ -56,11 +61,15 @@ while(True):
     screen.fill(black)
     paddle.draw()
     ball.draw()
+    punteggio.draw()
     for b in mattoncini:
         if b.colpito()==False:
             mattoncini.remove(b)
         else:
             b.draw()
+            punteggio.puntiA+=1
+            
+
     
 
 
