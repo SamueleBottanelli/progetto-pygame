@@ -5,11 +5,11 @@ from palla import palla
 from mattoncini import mattoncino
 from punteggio import punteggio
 from restart import restart
-
-
+from random import randint
+from limite import limite
 
 pygame.init()
-dimensionifinestra=(600,490)
+dimensionifinestra=(1100,600)
 white=(255,255,255)
 black=(0,0,0)
 red=(255,0,0)
@@ -19,42 +19,52 @@ screen=pygame.display.set_mode(dimensionifinestra,0,32)
 pygame.display.set_caption("pygame")
 clock=pygame.time.Clock()
 fps=60
+sfondo=pygame.image.load("spazio1.jpg")
+sfondo=pygame.transform.scale(sfondo,dimensionifinestra)
+size=(80,5)
+pos=(dimensionifinestra[0]/2-(size[0]/2),dimensionifinestra[1]-size[1]-100)
 
-
-
-pos=(300,425)
-size=(150,25)
 paddle=sbarra(screen,pos,size,white)
 paddle.draw()
 
 mattoncini=[]
 pos1=(300,200)                          
-size1=(25,25)
-velocity=[8,8]
+size1=(10,10)
+velocity=[4,-4]
 ball=palla(screen,pos1,size1,white,paddle,mattoncini)
 ball.draw()
 
-sizepunteggio=(100,40)
-pospunteggio=(499,0)
+sizepunteggio=(150,40)
+pospunteggio=(1100/2-(150/2),0)
 punti=punteggio(screen,sizepunteggio,pospunteggio)
 
 
 sizericomincia=(100,35)
-posricomincia=(250,dimensionifinestra[1]-35)
+posricomincia=(1100/2-(sizericomincia[0]/2),dimensionifinestra[1]-80)
 ricomincia=restart(screen,posricomincia,sizericomincia)
 
 
+limit1=limite(screen,(0,25),white)
+limit2=limite(screen,(0,510),white)
+limit1.draw()
+limit2.draw()
 
-
-
-for i in range(1,4):
-    bpos=[0,i*50]
-    for j in range(6):
-        brick=mattoncino(bpos,(100,50),screen,red,ball)
-        brick.draw()
-        mattoncini.append(brick)
-        bpos[0]+=100
-    bpos[1]+=50
+for i in range(2,10):
+    bpos=[0,i*25]
+    for j in range(22):
+        coso=randint(0,2)
+        coso2=randint(0,1)
+        if coso2==0:
+            if coso==0:
+                brick=mattoncino(bpos,(50,25),screen,blue,ball)
+            elif coso==1:
+                brick=mattoncino(bpos,(50,25),screen,green,ball)
+            else:
+                brick=mattoncino(bpos,(50,25),screen,red,ball)
+            brick.draw()
+            mattoncini.append(brick)
+        bpos[0]+=50
+    bpos[1]+=25
 
 condgameover=True
 condricomincia=False
@@ -64,24 +74,25 @@ while(True):
             pygame.quit()
             sys.exit()
 
-    if ball.rect.y==450:
+    if ball.rect.y==dimensionifinestra[1]-100:
         condgameover=False
     if condgameover==True:
         ball.muovi(velocity)
 
         key=pygame.key.get_pressed()
         if key[K_LEFT]:
-            paddle.moveleft(8)
+            paddle.moveleft(10)
         if key[K_RIGHT]:
-            paddle.moveright(8)
+            paddle.moveright(10)
         
         
 
         
-        screen.fill(black)
+        screen.blit(sfondo,(0,0))
         paddle.draw()
         ball.draw()
-    
+        limit1.draw()
+        limit2.draw()
     
     
         for b in mattoncini:
@@ -93,7 +104,6 @@ while(True):
                     b.cambiacolore()
                     punti.puntiA+=1
             else:
-                #b.draw()
                 b.draw()
 
         punti.draw()
@@ -107,24 +117,35 @@ while(True):
     condricomincia=ricomincia.tocca()
     if condricomincia:
         condgameover=True
-        screen.fill(black)
+        screen.blit(sfondo,(0,0))
         mattoncini.clear()
-        for i in range(1,4):
-            bpos=[0,i*50]
-            for j in range(6):
-                brick=mattoncino(bpos,(100,50),screen,red,ball)
-                brick.draw()
-                mattoncini.append(brick)
-                bpos[0]+=100
-            bpos[1]+=50
-        ball.rect.x=600
-        ball.rect.y=200
-        velocity=[8,8]
+        for i in range(2,10):
+            bpos=[0,i*25]
+            for j in range(22):
+                coso=randint(0,2)
+                coso2=randint(0,1)
+                if coso2==0:
+                    if coso==0:
+                        brick=mattoncino(bpos,(50,25),screen,blue,ball)
+                    elif coso==1:
+                        brick=mattoncino(bpos,(50,25),screen,green,ball)
+                    else:
+                        brick=mattoncino(bpos,(50,25),screen,red,ball)
+                    brick.draw()
+                    mattoncini.append(brick)
+                bpos[0]+=50
+            bpos[1]+=25
+        
+        ball.rect.x=1100/2
+        ball.rect.y=400
+        velocity=[4,-4]
         ball.draw()
-        paddle.rect.y=425
-        paddle.rect.x=300
+        paddle.rect.y=pos[1]
+        paddle.rect.x=pos[0]
         paddle.draw()
         punti.puntiA=0
+        limit1.draw()
+        limit2.draw()
         
 
 

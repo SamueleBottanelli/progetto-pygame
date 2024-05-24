@@ -14,11 +14,19 @@ class mattoncino:
         self.color1=green
         self.color2=blue
         self.ball=ball
+        self.size=size
     def colpito(self):
         if self.rect.colliderect(self.ball.rect):
             return False
     def draw(self):
-        self.image.fill(self.color)
+        if self.color==red:
+            texture=pygame.image.load("blocco rosso.jpeg")
+        elif self.color==green:
+            texture=pygame.image.load("blocco verde.jpeg")
+        else:
+            texture=pygame.image.load("blocco blu.jpeg")
+        texture=pygame.transform.scale(texture,self.size)
+        self.image.blit(texture,(0,0))
         self.screen.blit(self.image,self.rect)
     def cambiacolore(self):
         if self.color==(255,0,0):

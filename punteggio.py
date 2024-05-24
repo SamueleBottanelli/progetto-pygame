@@ -16,8 +16,11 @@ class punteggio:
     def draw(self):
         self.image.fill(BLACK)
         font=pygame.font.Font(None,20)
-        testo=f'PUNTEGGIO: {self.puntiA}'
+        testo=f'       PUNTEGGIO: {self.puntiA}'
         text=font.render(testo,1,WHITE)
+        term=pygame.image.load("blocco nero.jpeg")
+        term=pygame.transform.scale(term,self.size)
+        self.image.blit(term,(0,0))
         self.image.blit(text,(0,5))
         
 
