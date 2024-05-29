@@ -11,8 +11,8 @@ class palla:
         if mattoncini==None:
             self.mattoncini=[]
         self.paddle=paddle
-        self.rect.x=1100/2
-        self.rect.y=400
+        self.rect.x=pos[0]
+        self.rect.y=pos[1]
     def muovi(self,velocity):
         self.rect.x+=velocity[0]
         self.rect.y+=velocity[1]
@@ -35,6 +35,8 @@ class palla:
         for mattoncino in self.mattoncini:
             if self.rect.colliderect(mattoncino):
                 velocity[1]=-velocity[1]
+             
+
                
     
     def draw(self):

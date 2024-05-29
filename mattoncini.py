@@ -15,6 +15,8 @@ class mattoncino:
         self.color2=blue
         self.ball=ball
         self.size=size
+        self.rect.x=pos[0]
+        self.rect.y=pos[1]
     def colpito(self):
         if self.rect.colliderect(self.ball.rect):
             return False

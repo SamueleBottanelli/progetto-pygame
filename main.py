@@ -7,7 +7,7 @@ from punteggio import punteggio
 from restart import restart
 from random import randint
 from limite import limite
-
+from livello import livello
 pygame.init()
 dimensionifinestra=(1100,600)
 white=(255,255,255)
@@ -28,18 +28,20 @@ paddle=sbarra(screen,pos,size,white)
 paddle.draw()
 
 mattoncini=[]
-pos1=(300,200)                          
+pos1=(1100/2-5-3,600/2-5+100)                          
 size1=(10,10)
 velocity=[4,-4]
 ball=palla(screen,pos1,size1,white,paddle,mattoncini)
 ball.draw()
 
 sizepunteggio=(150,40)
-pospunteggio=(1100/2-(150/2),0)
+pospunteggio=(10,dimensionifinestra[1]-80)
 punti=punteggio(screen,sizepunteggio,pospunteggio)
-
-
-sizericomincia=(100,35)
+poslivello=(10,dimensionifinestra[1]-80+40)
+sizelvl=(125,40)
+lvl=livello(poslivello,sizelvl,screen)
+lvl.draw()
+sizericomincia=(200,70)
 posricomincia=(1100/2-(sizericomincia[0]/2),dimensionifinestra[1]-80)
 ricomincia=restart(screen,posricomincia,sizericomincia)
 
@@ -53,7 +55,7 @@ for i in range(2,10):
     bpos=[0,i*25]
     for j in range(22):
         coso=randint(0,2)
-        coso2=randint(0,1)
+        coso2=randint(0,2)
         if coso2==0:
             if coso==0:
                 brick=mattoncino(bpos,(50,25),screen,blue,ball)
@@ -77,8 +79,7 @@ while(True):
     if ball.rect.y==dimensionifinestra[1]-100:
         condgameover=False
     if condgameover==True:
-        ball.muovi(velocity)
-
+        
         key=pygame.key.get_pressed()
         if key[K_LEFT]:
             paddle.moveleft(10)
@@ -90,11 +91,50 @@ while(True):
         
         screen.blit(sfondo,(0,0))
         paddle.draw()
-        ball.draw()
+        
         limit1.draw()
         limit2.draw()
     
-    
+        if mattoncini==[]:
+            lvl.aggiorna()
+            ball.draw()
+            if lvl.lvl>=5:
+                for i in range(2,10):
+                    bpos=[0,i*25]
+                    for j in range(22):
+                        coso=randint(0,2)
+                        coso2=randint(0,2)
+                        if coso2==0:
+                            if coso==0:
+                                brick=mattoncino(bpos,(50,25),screen,blue,ball)
+                            elif coso==1:
+                                brick=mattoncino(bpos,(50,25),screen,green,ball)
+                            else:
+                                brick=mattoncino(bpos,(50,25),screen,red,ball)
+                            brick.draw()
+                            mattoncini.append(brick)
+                        bpos[0]+=50
+                    bpos[1]+=25 
+            else:
+                for i in range(2,10):
+                    bpos=[0,i*25]
+                    for j in range(22):
+                        coso=randint(0,2)
+                        coso2=randint(0,4)
+                        if coso2==0:
+                            if coso==0:
+                                brick=mattoncino(bpos,(50,25),screen,blue,ball)
+                            elif coso==1:
+                                brick=mattoncino(bpos,(50,25),screen,green,ball)
+                            else:
+                                brick=mattoncino(bpos,(50,25),screen,red,ball)
+                            brick.draw()
+                            mattoncini.append(brick)
+                        bpos[0]+=50
+                    bpos[1]+=25 
+
+        lvl.draw()
+
         for b in mattoncini:
             if b.colpito()==False:
                 if b.color==blue:
@@ -105,14 +145,17 @@ while(True):
                     punti.puntiA+=1
             else:
                 b.draw()
+        ball.muovi(velocity)
 
         punti.draw()
-        ricomincia.draw()
+        ball.draw()
+   
 
         
 
     if condgameover==False:
         ball.rect.y=300
+        ricomincia.draw()
     
     condricomincia=ricomincia.tocca()
     if condricomincia:
@@ -123,7 +166,7 @@ while(True):
             bpos=[0,i*25]
             for j in range(22):
                 coso=randint(0,2)
-                coso2=randint(0,1)
+                coso2=randint(0,40)
                 if coso2==0:
                     if coso==0:
                         brick=mattoncino(bpos,(50,25),screen,blue,ball)
@@ -136,8 +179,8 @@ while(True):
                 bpos[0]+=50
             bpos[1]+=25
         
-        ball.rect.x=1100/2
-        ball.rect.y=400
+        ball.rect.x=pos1[0]
+        ball.rect.y=pos1[1]
         velocity=[4,-4]
         ball.draw()
         paddle.rect.y=pos[1]
@@ -146,6 +189,10 @@ while(True):
         punti.puntiA=0
         limit1.draw()
         limit2.draw()
+   
+        punti.draw()
+        lvl.resetta()
+        lvl.draw()
         
 
 
