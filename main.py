@@ -114,8 +114,8 @@ while(True):
                             brick.draw()
                             mattoncini.append(brick)
                         bpos[0]+=50
-                    bpos[1]+=25 
-            else:
+                    bpos[1]+=25
+            elif lvl.lvl<5:
                 for i in range(2,10):
                     bpos=[0,i*25]
                     for j in range(22):
@@ -132,7 +132,8 @@ while(True):
                             mattoncini.append(brick)
                         bpos[0]+=50
                     bpos[1]+=25 
-
+            elif lvl.lvl==10:
+                    
         lvl.draw()
 
         for b in mattoncini:
