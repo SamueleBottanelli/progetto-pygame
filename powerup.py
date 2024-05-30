@@ -23,8 +23,8 @@ class powerup:
         self.image.blit(self.texture,(0,0))
 
     def draw(self):
-        
-        self.screen.blit(self.image,self.rect)
+        if self.rect.y<=510:
+            self.screen.blit(self.image,self.rect)
 
     def move(self):
         self.rect.y+=self.velocity

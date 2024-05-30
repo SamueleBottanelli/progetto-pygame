@@ -23,7 +23,7 @@ def rimettipowerup(screen,mattoncini):
             i-=1
     powerup1list2=[]
     for i in range(n):
-        velocity1=randint(3,8)
+        velocity1=[2,2]
         powerup1=powerup(screen,(powerup1list[i].rect.x,powerup1list[i].rect.y),(10,5),1,velocity1,False)
         powerup1list2.append(powerup1)
     for i in range(n):
@@ -36,13 +36,12 @@ def rimettipowerup(screen,mattoncini):
     powerup2list2=[]
     conta=[]
     for i in range(n):
-        velocity2=randint(3,8)
+        velocity2=[2,2]
         powerup2=powerup(screen,(powerup2list[i].rect.x,powerup2list[i].rect.y),(15,15),3,velocity2,False)
         powerup2list2.append(powerup2)
         conta.append(0)
 
-    pallapowerup=[]
-    velocitylista=[]
+  
 
 dimensionifinestra=(1100,600)
 white=(255,255,255)
@@ -157,7 +156,7 @@ for i in range(n*5):
     velocitylista.append(h)
         
     condscompari=True 
-#suono=pygame.mixer.Sound("boing-2-44164.mp3")
+suono=pygame.mixer.Sound("boing-2-44164.mp3")
 time=0
 while(True):
     for event in pygame.event.get():

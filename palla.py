@@ -1,6 +1,5 @@
 import pygame, sys
 from pygame.locals import *
-
 class palla:
     def __init__(self,screen, pos, size, color,paddle,mattoncini=None) -> None:
         self.screen=screen
@@ -31,6 +30,8 @@ class palla:
             self.rect.y=504
             velocity[1]=velocity[1]*-1
         if self.rect.colliderect(self.paddle.rect):
+            pygame.mixer.music.load("boing-2-44164.mp3")
+            pygame.mixer.music.play()
             velocity[1]=velocity[1]*-1
         for mattoncino in self.mattoncini:
             if self.rect.colliderect(mattoncino):

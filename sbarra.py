@@ -25,7 +25,7 @@ class sbarra:
         self.image.blit(term,(0,0))
         self.screen.blit(self.image,self.rect)
     def allungasbarra(self):
-        self.rect.width=100
+        self.rect.width=140
         self.rect.x-=10
     def accorciasbarra(self):
         self.rect.width=80
