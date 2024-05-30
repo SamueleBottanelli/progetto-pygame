@@ -14,32 +14,57 @@ pygame.init()
 def rimettipowerup(screen,mattoncini):
     powerup1list={}
     powerup2list={}
-    n=randint(10,20)
+    n=randint(5,7)
     for i in range(n):
         r=randint(0,len(mattoncini)-1)
         if mattoncini[r] not in powerup1list:
             powerup1list[i]=mattoncini[r]
         else:
             i-=1
-    powerup1list2=[]
-    for i in range(n):
-        velocity1=[2,2]
-        powerup1=powerup(screen,(powerup1list[i].rect.x,powerup1list[i].rect.y),(10,5),1,velocity1,False)
-        powerup1list2.append(powerup1)
     for i in range(n):
         k=randint(0,len(mattoncini)-1)
         if mattoncini[k] not in powerup2list:
             powerup2list[i]=mattoncini[k]
-        
+
         else:
             i-=1
-    powerup2list2=[]
-    conta=[]
+    powerup1list2=[]
     for i in range(n):
-        velocity2=[2,2]
-        powerup2=powerup(screen,(powerup2list[i].rect.x,powerup2list[i].rect.y),(15,15),3,velocity2,False)
-        powerup2list2.append(powerup2)
-        conta.append(0)
+        velocity1=randint(3,8)
+        powerup1=powerup(screen,(powerup1list[i].rect.x,powerup1list[i].rect.y),(10,5),1,velocity1,False)
+        powerup1list2.append(powerup1)
+    condgameover=True
+    condricomincia=False
+    pallapowerup=[]
+    velocitylista=[]
+
+    for i in range(n*5):
+        velocityx1=randint(4,8)
+        velocityx2=randint(-8,-4)
+        velocityy1=randint(4,8)
+        velocityy2=randint(-8,-4)
+        u=randint(0,1)
+        if u==0:
+            velocityx=velocityx1
+        else:
+            velocityx=velocityx2
+        p=randint(0,1)
+        if p==0:
+            velocityy=velocityy1
+        elif p==1:
+            velocityy=velocityy2
+        h=[velocityx,velocityy]
+        velocitylista.append(h)
+        
+
+        
+        powerup2list2=[]
+        conta=[]
+        for i in range(n):
+            velocity2=randint(3,8)
+            powerup2=powerup(screen,(powerup2list[i].rect.x,powerup2list[i].rect.y),(15,15),3,velocity2,False)
+            powerup2list2.append(powerup2)
+            conta.append(0)
 
   
 
@@ -202,10 +227,11 @@ while(True):
         for i in range(len(powerup2list2)):
             if powerup2list2[i].rect.colliderect(paddle.rect):
                 paddle.allungasbarra()
-                time+=4
+                time+=100
 
         if mattoncini==[]:
             pallapowerup.clear()
+
             condscompari=True
             lvl.aggiorna()
             ball.draw()
@@ -243,7 +269,61 @@ while(True):
                             mattoncini.append(brick)
                         bpos[0]+=50
                     bpos[1]+=25 
-            rimettipowerup(screen,mattoncini)
+            #powerup1list2.clear()
+            #powerup2list2.clear()
+            #rimettipowerup(screen,mattoncini)
+            powerup1list={}
+            powerup2list={}
+            n=randint(5,7)
+            for i in range(n):
+                r=randint(0,len(mattoncini)-1)
+                if mattoncini[r] not in powerup1list:
+                    powerup1list[i]=mattoncini[r]
+                else:
+                    i-=1
+            for i in range(n):
+                k=randint(0,len(mattoncini)-1)
+                if mattoncini[k] not in powerup2list:
+                    powerup2list[i]=mattoncini[k]
+        
+                else:
+                    i-=1
+            powerup1list2=[]
+            for i in range(n):
+                velocity1=randint(3,8)
+                powerup1=powerup(screen,(powerup1list[i].rect.x,powerup1list[i].rect.y),(10,5),1,velocity1,False)
+                powerup1list2.append(powerup1)
+
+            pallapowerup=[]
+            velocitylista=[]
+
+            for i in range(n*5):
+                velocityx1=randint(4,8)
+                velocityx2=randint(-8,-4)
+                velocityy1=randint(4,8)
+                velocityy2=randint(-8,-4)
+                u=randint(0,1)
+                if u==0:
+                    velocityx=velocityx1
+                else:
+                    velocityx=velocityx2
+                p=randint(0,1)
+                if p==0:
+                    velocityy=velocityy1
+                elif p==1:
+                    velocityy=velocityy2
+                h=[velocityx,velocityy]
+                velocitylista.append(h)
+                
+
+                
+                powerup2list2=[]
+                conta=[]
+                for i in range(n):
+                    velocity2=randint(3,8)
+                    powerup2=powerup(screen,(powerup2list[i].rect.x,powerup2list[i].rect.y),(15,15),3,velocity2,False)
+                    powerup2list2.append(powerup2)
+                    conta.append(0)
             ball.rect.x=1100/2-5-3
             ball.rect.y=600/2-5+100
             #elif lvl.lvl==10:
@@ -279,7 +359,7 @@ while(True):
                             powerup1list2[i].cond=True
                     for i in range(n):
                         if powerup2list[i]==b:
-                            powerup2list[i].cond=True
+                            powerup2list2[i].cond=True
                 
                 else:
                     b.cambiacolore()
