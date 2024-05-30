@@ -6,7 +6,7 @@ blue=(0,0,255)
 green=(0,255,0)
 
 class mattoncino:
-    def __init__(self,pos,size,screen,color,ball) -> None:
+    def __init__(self,pos,size,screen,color,ball,cond=True) -> None:
         self.image=pygame.Surface(size)
         self.color=color
         self.rect=Rect(pos[0],pos[1],size[0],size[1])
@@ -15,6 +15,7 @@ class mattoncino:
         self.color2=blue
         self.ball=ball
         self.size=size
+        self.cond=cond
         self.rect.x=pos[0]
         self.rect.y=pos[1]
     def colpito(self):

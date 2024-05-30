@@ -20,6 +20,13 @@ class sbarra:
             self.rect.x+=pixels
     def draw(self):
         term=pygame.image.load("blocco nero.jpeg")
-        term=pygame.transform.scale(term,self.size)
+        term=pygame.transform.scale(term,(self.rect.width,self.rect.height))
+        self.image=pygame.Surface((self.rect.width,self.rect.height))
         self.image.blit(term,(0,0))
         self.screen.blit(self.image,self.rect)
+    def allungasbarra(self):
+        self.rect.width=100
+        self.rect.x-=10
+    def accorciasbarra(self):
+        self.rect.width=80
+        self.rect.x+=10
